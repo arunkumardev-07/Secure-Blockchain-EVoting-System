@@ -1,78 +1,59 @@
-\# Secure Blockchain-Based E-Voting System
+﻿# Secure Blockchain-Based E-Voting System
 
+A full-stack academic project demonstrating electronic voting using Java, Spring Boot, MySQL, Solidity smart contracts, and a web-based frontend.
 
+## Technologies Used
 
-\## Project Overview
+- **Backend:** Java 21, Spring Boot, Maven
+- **Database:** MySQL 8
+- **Blockchain:** Solidity, Hardhat, local Ethereum-compatible development network
+- **Frontend:** HTML, CSS, JavaScript
+- **Security:** BCrypt password hashing and SHA-256 hashing utilities
+- **API:** REST APIs
 
-A demonstration electronic voting system built using Java, Spring Boot, MySQL, Solidity, and Hardhat. It combines voter authentication, REST APIs, smart-contract-based vote recording, and a web interface to demonstrate blockchain integration.
+## Key Features
 
+- Voter registration and login
+- Candidate and election management
+- Java REST API backend
+- Smart-contract-based vote recording
+- Duplicate-vote prevention in the application
+- Blockchain-based vote counting and results
+- Web interface for interacting with the voting system
 
+## Project Structure
 
-\## Technologies Used
+```text
+SecureEvotingSystem/
+├── backend/
+│   └── evoting-backend/
+│       └── evoting-backend/
+├── blockchain/
+│   ├── contracts/
+│   ├── scripts/
+│   └── test/
+├── frontend/
+│   ├── assets/
+│   ├── index.html
+│   ├── results.html
+│   ├── script.js
+│   └── style.css
+├── .gitignore
+└── README.md
+```
 
-\- \*\*Backend:\*\* Java 21, Spring Boot, Maven
+## Project Purpose
 
-\- \*\*Database:\*\* MySQL 8
+The goal of this project is to explore how a Java backend, relational database, web interface, and blockchain smart contract can work together in an electronic voting application.
 
-\- \*\*Blockchain:\*\* Solidity, Hardhat, local Ethereum-compatible network
+It also provides practical experience with REST API development, database integration, smart contract development, and blockchain interaction.
 
-\- \*\*Frontend:\*\* HTML, CSS, JavaScript
+## Academic Demonstration Only
 
-\- \*\*Security:\*\* BCrypt password hashing and SHA-256 cryptographic utilities
+This project is intended for learning and demonstration. It has not been independently audited and is **not suitable for real-world elections**. Blockchain integration alone does not guarantee voter anonymity, election integrity, or production-grade security.
 
+## Author
 
+**Arun Kumar**
 
-\## Key Features
-
-\- Voter registration and login
-
-\- Password hashing with BCrypt
-
-\- REST APIs for voter and election operations
-
-\- Smart-contract-based vote recording on a local blockchain
-
-\- Prevention of duplicate voting in the application
-
-\- Candidate vote counts retrieved from the blockchain
-
-\- Web interface with voting and results dashboard
-
-
-
-\## Project Structure
-
-\- `backend/` — Spring Boot application and database integration
-
-\- `blockchain/` — Solidity contracts and Hardhat scripts
-
-\- `frontend/` — Web interface and JavaScript API integration
-
-
-
-\## How It Works
-
-1\. A voter registers and logs in.
-
-2\. The application displays the available candidates.
-
-3\. The voter submits a vote through the backend API.
-
-4\. The backend validates the election and voter eligibility.
-
-5\. The application submits a transaction to the local blockchain.
-
-6\. The results dashboard retrieves candidate vote counts from the smart contract.
-
-
-
-\## Running the Project
-
-Run MySQL, the local Hardhat blockchain, the Spring Boot backend, and the frontend server. Configure the database connection and local blockchain settings before starting the application.
-
-
-
-\## Important Note
-
-This is an academic demonstration project intended for local testing. It is not designed or audited for real government elections. Production voting systems require stronger ballot privacy, independent security audits, access controls, and robust operational safeguards.
-
+GitHub: [@arunkumardev-07](https://github.com/arunkumardev-07)
