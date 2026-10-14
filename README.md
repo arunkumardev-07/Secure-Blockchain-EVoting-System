@@ -57,3 +57,86 @@ This project is intended for learning and demonstration. It has not been indepen
 **Arun Kumar**
 
 GitHub: [@arunkumardev-07](https://github.com/arunkumardev-07)
+
+## Prerequisites
+
+Install the following tools before running the project:
+
+- Java Development Kit (JDK) 21
+- Maven 3.9 or compatible version
+- Node.js and npm
+- MySQL Server 8
+- Git
+
+Verify your installations:
+
+```powershell
+java -version
+mvn -version
+node -v
+npm -v
+git --version
+```
+
+## Running the Project Locally
+
+The application consists of three main components: the blockchain, Java backend, and web frontend.
+
+### 1. Start the local blockchain
+
+Open a PowerShell terminal:
+
+```powershell
+cd blockchain
+npm install
+npx hardhat node
+```
+
+Keep this terminal open. The local blockchain must remain running while you test the application.
+
+### 2. Configure and start the Java backend
+
+Open a second PowerShell terminal and navigate to the backend:
+
+```powershell
+cd backend/evoting-backend/evoting-backend
+```
+
+Configure your local MySQL database and blockchain connection using your local application configuration. Do not publish database passwords, private keys, or other credentials to GitHub.
+
+Then start the backend:
+
+```powershell
+mvn spring-boot:run
+```
+
+Use the port configured in your local application settings. This project has been tested locally on port 8081.
+
+### 3. Start the frontend
+
+Open a third PowerShell terminal:
+
+```powershell
+cd frontend
+npx http-server -p 5500
+```
+
+If prompted to install `http-server`, approve only if you intend to use that package.
+
+Open the frontend URL shown by the terminal, usually:
+
+http://localhost:5500
+
+### 4. Verify the application
+
+- Confirm the local blockchain node is running.
+- Confirm the Spring Boot backend starts successfully.
+- Confirm MySQL is running and the database configuration is correct.
+- Open the frontend and test the available voting and results features.
+
+## Important Notes
+
+- The local blockchain resets when its node is restarted; redeploy the contract and update local configuration as needed.
+- Contract addresses and local database settings can differ between environments.
+- Never use real funds or real voter information for testing.
+- These instructions describe a local development setup, not a production deployment.
