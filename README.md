@@ -157,3 +157,7 @@ http://localhost:5500
 
 <img width="1902" height="907" alt="results png" src="https://github.com/user-attachments/assets/e03a1458-85ae-44e2-a2c3-d23e65773528" />
 
+
+## Architecture
+
+See [System Architecture](docs/ARCHITECTURE.md) for the high-level component overview.
