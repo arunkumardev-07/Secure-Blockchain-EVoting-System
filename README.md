@@ -140,3 +140,17 @@ http://localhost:5500
 - Contract addresses and local database settings can differ between environments.
 - Never use real funds or real voter information for testing.
 - These instructions describe a local development setup, not a production deployment.
+
+## Application Screenshots
+
+### Login
+
+![Login screen](screenshots/login.png)
+
+### Voting Interface
+
+![Voting interface](screenshots/voting.png)
+
+### Election Results
+
+![Election results](screenshots/results.png)
