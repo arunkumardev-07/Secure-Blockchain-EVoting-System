@@ -145,12 +145,15 @@ http://localhost:5500
 
 ### Login
 
-![Login screen](screenshots/login.png)
+<img width="1896" height="913" alt="login png" src="https://github.com/user-attachments/assets/edf83c74-a1bc-4fd4-bb34-26a65d360fb7" />
+
 
 ### Voting Interface
 
-![Voting interface](screenshots/voting.png)
+<img width="1901" height="806" alt="vote png" src="https://github.com/user-attachments/assets/ab1bbc2c-2291-4e7c-81e3-47b7c525b2a0" />
+
 
 ### Election Results
 
-![Election results](screenshots/results.png)
+<img width="1902" height="907" alt="results png" src="https://github.com/user-attachments/assets/e03a1458-85ae-44e2-a2c3-d23e65773528" />
+
