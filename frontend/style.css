@@ -1,0 +1,712 @@
+
+/* =========================================
+   SECURE BLOCKCHAIN E-VOTING SYSTEM
+   Complete stylesheet
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #174ea6;
+    --primary-dark: #12345a;
+    --secondary: #14b8a6;
+    --text: #17324f;
+    --muted: #64748b;
+    --page-bg: #f2f6fc;
+    --card-bg: #ffffff;
+    --border: #dce6f2;
+    --success: #176b3a;
+    --success-bg: #effaf2;
+    --danger: #b42318;
+    --danger-bg: #fff0ee;
+    --shadow: 0 8px 26px rgba(15, 40, 75, 0.07);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background: var(--page-bg);
+    line-height: 1.6;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* =========================================
+   LOGIN PAGE
+   ========================================= */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 28px 16px;
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(20, 184, 166, 0.28),
+            transparent 35%
+        ),
+        linear-gradient(135deg, #0d2850, #174ea6 58%, #0c8b91);
+}
+
+.login-panel {
+    width: 100%;
+    max-width: 440px;
+    padding: 38px 34px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+}
+
+.login-icon {
+    width: 76px;
+    height: 76px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 18px;
+    border-radius: 20px;
+    background: #edf4ff;
+    font-size: 38px;
+}
+
+.login-panel h1 {
+    margin: 0;
+    color: var(--primary-dark);
+    font-size: 27px;
+    text-align: center;
+    letter-spacing: 0.7px;
+}
+
+.login-subtitle {
+    margin: 10px 0 28px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 14px;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+#loginForm label {
+    margin-top: 8px;
+    color: var(--primary-dark);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#loginForm input {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #cbd7e6;
+    border-radius: 10px;
+    outline: none;
+    background: #fff;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#loginForm input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(23, 78, 166, 0.12);
+}
+
+.login-button {
+    min-height: 49px;
+    margin-top: 16px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(100deg, var(--primary), #167fba);
+    color: #fff;
+    font-weight: 700;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.login-button:hover:not(:disabled) {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.demo-note {
+    margin: 28px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+/* =========================================
+   COMMON MESSAGES
+   ========================================= */
+
+.message {
+    min-height: 0;
+    margin: 14px 0;
+    overflow-wrap: anywhere;
+    font-size: 14px;
+}
+
+#loginMessage,
+#voteMessage,
+#resultsMessage {
+    color: var(--primary-dark);
+}
+
+#voteMessage:empty,
+#loginMessage:empty,
+#resultsMessage:empty {
+    display: none;
+}
+
+/* =========================================
+   VOTING HEADER
+   ========================================= */
+
+.voting-page {
+    min-height: 100vh;
+}
+
+.voting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 22px;
+    padding: 25px max(24px, calc((100% - 1100px) / 2));
+    color: #fff;
+    background: linear-gradient(110deg, #102b53, #174ea6 65%, #087f8c);
+}
+
+.voting-header h1 {
+    margin: 0;
+    font-size: 25px;
+    letter-spacing: 0.3px;
+}
+
+.voting-header p {
+    margin: 5px 0 0;
+    color: #e0eaff;
+    font-size: 14px;
+}
+
+.logout-button {
+    flex-shrink: 0;
+    padding: 10px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-weight: 600;
+}
+
+.logout-button:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+/* =========================================
+   MAIN VOTING CONTENT
+   ========================================= */
+
+.voting-main {
+    width: min(100% - 32px, 1000px);
+    margin: 32px auto 48px;
+}
+
+.voting-heading {
+    margin-bottom: 22px;
+}
+
+.voting-heading h2 {
+    margin: 0 0 5px;
+    color: var(--primary-dark);
+    font-size: 25px;
+}
+
+.voting-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.party-list {
+    display: grid;
+    gap: 16px;
+}
+
+.party-row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 82px 128px;
+    align-items: center;
+    gap: 20px;
+    min-height: 132px;
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.party-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(15, 40, 75, 0.1);
+}
+
+.party-number {
+    color: var(--muted);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.party-details {
+    min-width: 0;
+}
+
+.party-name {
+    color: var(--primary-dark);
+    font-size: 21px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.party-votes {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.party-symbol {
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border: 1px solid #dce7f7;
+    border-radius: 13px;
+    background: #f2f6ff;
+    font-size: 32px;
+    line-height: 1;
+}
+
+.vote-button {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 16px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(100deg, var(--primary), #167fba);
+    color: #fff;
+    font-weight: 700;
+    transition: filter 0.2s, transform 0.2s;
+}
+
+.vote-button:hover:not(:disabled) {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   VOTE CONFIRMATION RECEIPT
+   ========================================= */
+
+.receipt-panel {
+    margin-top: 24px;
+    padding: 25px;
+    border: 1px solid #a9dfba;
+    border-radius: 15px;
+    background: var(--success-bg);
+    color: #176b3a;
+}
+
+.receipt-panel h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+}
+
+.receipt-panel p {
+    overflow-wrap: anywhere;
+}
+
+#receiptText {
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    font-family: Consolas, monospace;
+    font-size: 13px;
+}
+
+/* =========================================
+   UNIFIED BLOCKCHAIN RESULTS DASHBOARD
+   ========================================= */
+
+.results-section {
+    margin-top: 44px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    scroll-margin-top: 20px;
+}
+
+.results-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.results-heading h2 {
+    margin: 0 0 5px;
+    color: var(--primary-dark);
+    font-size: 25px;
+}
+
+.results-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.refresh-results-button {
+    min-height: 43px;
+    padding: 10px 17px;
+    border: none;
+    border-radius: 9px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    transition: filter 0.2s;
+}
+
+.refresh-results-button:hover:not(:disabled) {
+    filter: brightness(1.12);
+}
+
+.refresh-results-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.results-summary {
+    margin-bottom: 18px;
+    padding: 23px 25px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: var(--shadow);
+}
+
+.results-summary h3 {
+    margin: 0 0 8px;
+    color: var(--primary-dark);
+    font-size: 22px;
+}
+
+.results-summary p {
+    margin: 8px 0;
+    color: var(--text);
+}
+
+.results-summary strong {
+    color: var(--primary-dark);
+}
+
+.candidate-results {
+    display: grid;
+    gap: 14px;
+}
+
+.candidate-result {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.candidate-result:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(15, 40, 75, 0.09);
+}
+
+.candidate-result-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.candidate-result-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.candidate-result-details h3 {
+    margin: 0 0 5px;
+    color: var(--primary-dark);
+    font-size: 18px;
+}
+
+.candidate-result-details p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.result-vote-count {
+    min-width: 58px;
+    text-align: right;
+    color: var(--primary-dark);
+}
+
+.result-vote-count strong {
+    display: block;
+    font-size: 24px;
+    line-height: 1.25;
+}
+
+.result-vote-count span {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.progress-track {
+    width: 100%;
+    height: 10px;
+    margin-top: 17px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e5eaf2;
+}
+
+.progress-fill {
+    height: 100%;
+    min-width: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #2563eb, #14b8a6);
+    transition: width 0.4s ease;
+}
+
+/* =========================================
+   RESULTS / EMPTY / ERROR STATES
+   ========================================= */
+
+#resultsMessage {
+    margin: 17px 0;
+    color: var(--muted);
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+#resultsMessage:empty {
+    display: none;
+}
+
+#candidateList > p {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--muted);
+}
+
+#candidateResults:empty {
+    display: block;
+}
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid rgba(20, 184, 166, 0.65);
+    outline-offset: 3px;
+}
+
+/* =========================================
+   RESPONSIVE LAYOUT
+   ========================================= */
+
+@media (max-width: 760px) {
+    .voting-header {
+        align-items: flex-start;
+        padding: 22px 18px;
+    }
+
+    .voting-header h1 {
+        font-size: 21px;
+    }
+
+    .voting-main {
+        width: calc(100% - 24px);
+        margin-top: 24px;
+    }
+
+    .party-row {
+        grid-template-columns: 30px minmax(0, 1fr) 60px;
+        gap: 12px;
+        min-height: 112px;
+        padding: 17px;
+    }
+
+    .party-number {
+        font-size: 16px;
+    }
+
+    .party-name {
+        font-size: 18px;
+    }
+
+    .party-symbol {
+        width: 54px;
+        height: 54px;
+        font-size: 27px;
+    }
+
+    .vote-button {
+        grid-column: 2 / 4;
+        min-height: 43px;
+    }
+
+    .results-heading {
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-panel {
+        padding: 30px 22px;
+    }
+
+    .login-panel h1 {
+        font-size: 23px;
+    }
+
+    .voting-header {
+        gap: 12px;
+        padding: 19px 13px;
+    }
+
+    .voting-header h1 {
+        font-size: 18px;
+    }
+
+    .voting-header p {
+        font-size: 12px;
+    }
+
+    .logout-button {
+        padding: 8px 11px;
+        font-size: 13px;
+    }
+
+    .voting-heading h2,
+    .results-heading h2 {
+        font-size: 21px;
+    }
+
+    .party-row {
+        grid-template-columns: 24px minmax(0, 1fr) 48px;
+        gap: 9px;
+        padding: 13px 11px;
+    }
+
+    .party-symbol {
+        width: 46px;
+        height: 46px;
+        border-radius: 10px;
+        font-size: 23px;
+    }
+
+    .party-name {
+        font-size: 16px;
+    }
+
+    .party-votes {
+        font-size: 12px;
+    }
+
+    .vote-button {
+        grid-column: 2 / 4;
+    }
+
+    .results-summary {
+        padding: 18px;
+    }
+
+    .results-summary h3 {
+        font-size: 19px;
+    }
+
+    .candidate-result {
+        padding: 13px;
+    }
+
+    .candidate-result-top {
+        gap: 10px;
+    }
+
+    .candidate-result-details h3 {
+        font-size: 16px;
+    }
+
+    .candidate-result-details p {
+        font-size: 12px;
+    }
+
+    .result-vote-count {
+        min-width: 42px;
+    }
+
+    .result-vote-count strong {
+        font-size: 21px;
+    }
+
+    .receipt-panel {
+        padding: 18px;
+    }
+}
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}

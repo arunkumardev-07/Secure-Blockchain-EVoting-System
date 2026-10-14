@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results | Secure E-Voting</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .results-page {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 24px;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .results-header h1 {
+            color: #12345a;
+            margin-bottom: 10px;
+        }
+
+        .results-status {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: #e6f7ec;
+            color: #176b3a;
+            font-size: 14px;
+        }
+
+        .results-summary {
+            background: #fff;
+            padding: 22px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .results-summary h2 {
+            margin-top: 0;
+            color: #12345a;
+        }
+
+        .candidate-result {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .candidate-top {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .party-symbol {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #eef4ff;
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .candidate-details {
+            flex: 1;
+        }
+
+        .candidate-details h3 {
+            margin: 0 0 6px;
+            color: #12345a;
+        }
+
+        .candidate-details p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .vote-total {
+            text-align: right;
+            font-weight: bold;
+            color: #12345a;
+        }
+
+        .vote-total strong {
+            display: block;
+            font-size: 25px;
+        }
+
+        .progress-track {
+            height: 12px;
+            background: #e5eaf2;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 18px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #2563eb, #14b8a6);
+            border-radius: 20px;
+            transition: width 0.4s ease;
+        }
+
+        .result-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 24px 0;
+        }
+
+        .result-actions button,
+        .result-actions a {
+            border: 0;
+            border-radius: 9px;
+            padding: 12px 20px;
+            background: #174ea6;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .result-actions button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .results-message {
+            text-align: center;
+            margin: 18px 0;
+            color: #475569;
+        }
+
+        .results-disclaimer {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 550px) {
+            .results-page {
+                margin: 15px auto;
+                padding: 12px;
+            }
+
+            .candidate-result {
+                padding: 14px;
+            }
+
+            .party-symbol {
+                width: 48px;
+                height: 48px;
+                font-size: 25px;
+            }
+
+            .candidate-top {
+                gap: 10px;
+            }
+
+            .vote-total strong {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="results-page">
+        <header class="results-header">
+            <h1>Election Results</h1>
+            <p>Tamil Nadu Demo Election</p>
+            <span class="results-status">Local Blockchain Demo</span>
+        </header>
+
+        <section class="results-summary">
+            <h2 id="leaderTitle">Checking results...</h2>
+            <p id="leaderDescription">
+                Retrieving vote counts from the blockchain.
+            </p>
+            <p>Total votes recorded: <strong id="totalVotes">0</strong></p>
+        </section>
+
+        <section id="candidateResults" aria-live="polite"></section>
+
+        <p id="resultsMessage" class="results-message">
+            Loading blockchain results...
+        </p>
+
+        <div class="result-actions">
+            <button id="refreshButton" type="button">
+                Refresh Results
+            </button>
+            <a href="index.html">Back to Voting</a>
+        </div>
+
+        <p class="results-disclaimer">
+            Demonstration only. Results are read from a local blockchain
+            and are not official election results.
+        </p>
+    </main>
+
+    <script>
+        const RESULTS_API =
+            "http://localhost:8081/api/blockchain/results?electionId=1";
+
+        const symbols = {
+            TVK: "🎤",
+            DMK: "🌅",
+            AIADMK: "🍃",
+            NTK: "🎙️"
+        };
+
+        const candidateResults =
+            document.getElementById("candidateResults");
+        const resultsMessage =
+            document.getElementById("resultsMessage");
+        const refreshButton =
+            document.getElementById("refreshButton");
+
+        async function loadResults() {
+            refreshButton.disabled = true;
+            resultsMessage.textContent =
+                "Loading results from the blockchain...";
+
+            try {
+                const response = await fetch(RESULTS_API);
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Results API returned HTTP " + response.status
+                    );
+                }
+
+                const candidates = await response.json();
+
+                if (!Array.isArray(candidates)) {
+                    throw new Error("Unexpected results response.");
+                }
+
+                const totalVotes = candidates.reduce(
+                    (sum, candidate) =>
+                        sum + Number(candidate.voteCount || 0),
+                    0
+                );
+
+                document.getElementById("totalVotes").textContent =
+                    totalVotes;
+
+                const highestVotes = candidates.length
+                    ? Math.max(
+                        ...candidates.map(c =>
+                            Number(c.voteCount || 0)
+                        )
+                    )
+                    : 0;
+
+                const leaders = candidates.filter(
+                    c => Number(c.voteCount || 0) === highestVotes
+                );
+
+                const leaderTitle =
+                    document.getElementById("leaderTitle");
+                const leaderDescription =
+                    document.getElementById("leaderDescription");
+
+                if (totalVotes === 0) {
+                    leaderTitle.textContent = "No votes recorded yet";
+                    leaderDescription.textContent =
+                        "The blockchain currently has no recorded votes.";
+                } else if (leaders.length > 1) {
+                    leaderTitle.textContent = "Provisional tie";
+                    leaderDescription.textContent =
+                        "More than one candidate currently has the highest vote count.";
+                } else {
+                    leaderTitle.textContent =
+                        "Provisional leader: " + leaders[0].name;
+                    leaderDescription.textContent =
+                        leaders[0].name + " currently has the most recorded votes.";
+                }
+
+                candidateResults.replaceChildren();
+
+                candidates.forEach(candidate => {
+                    const votes = Number(candidate.voteCount || 0);
+                    const percentage = totalVotes > 0
+                        ? (votes / totalVotes) * 100
+                        : 0;
+
+                    const card = document.createElement("article");
+                    card.className = "candidate-result";
+
+                    const top = document.createElement("div");
+                    top.className = "candidate-top";
+
+                    const symbol = document.createElement("div");
+                    symbol.className = "party-symbol";
+                    symbol.textContent =
+                        symbols[candidate.name] || "🗳️";
+                    symbol.setAttribute("aria-hidden", "true");
+
+                    const details = document.createElement("div");
+                    details.className = "candidate-details";
+
+                    const name = document.createElement("h3");
+                    name.textContent = candidate.name;
+
+                    const percentageText = document.createElement("p");
+                    percentageText.textContent =
+                        percentage.toFixed(1) + "% of recorded votes";
+
+                    details.append(name, percentageText);
+
+                    const total = document.createElement("div");
+                    total.className = "vote-total";
+
+                    const number = document.createElement("strong");
+                    number.textContent = votes;
+
+                    const label = document.createElement("span");
+                    label.textContent =
+                        votes === 1 ? "vote" : "votes";
+
+                    total.append(number, label);
+                    top.append(symbol, details, total);
+
+                    const track = document.createElement("div");
+                    track.className = "progress-track";
+                    track.setAttribute("aria-label", "Vote percentage");
+
+                    const fill = document.createElement("div");
+                    fill.className = "progress-fill";
+                    fill.style.width = percentage + "%";
+
+                    track.append(fill);
+                    card.append(top, track);
+                    candidateResults.append(card);
+                });
+
+                resultsMessage.textContent =
+                    "Results updated from the blockchain successfully.";
+            } catch (error) {
+                resultsMessage.textContent =
+                    "Unable to load results: " + error.message;
+            } finally {
+                refreshButton.disabled = false;
+            }
+        }
+
+        refreshButton.addEventListener("click", loadResults);
+        loadResults();
+    </script>
+</body>
+</html>

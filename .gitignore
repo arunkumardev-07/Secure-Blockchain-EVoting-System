@@ -1,0 +1,65 @@
+# ==========================================
+# Java and Maven
+# ==========================================
+**/target/
+**/bin/
+*.class
+*.log
+
+# ==========================================
+# Local configuration and secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+**/application.properties
+**/application-local.properties
+**/secrets/
+*.pem
+*.key
+*.p12
+*.jks
+credentials.json
+
+# ==========================================
+# Node.js and npm
+# ==========================================
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ==========================================
+# Hardhat generated files
+# ==========================================
+**/artifacts/
+**/cache/
+**/coverage/
+
+# ==========================================
+# Local blockchain deployment data
+# ==========================================
+blockchain/deployment-address.json
+
+# ==========================================
+# Generated contract ABI and bytecode
+# ==========================================
+backend/evoting-backend/evoting-backend/Voting.json
+
+# ==========================================
+# Temporary diagnostic and backup files
+# ==========================================
+**/startup-error.txt
+frontend/*-backup.*
+*.tmp
+*.bak
+
+# ==========================================
+# IDE and operating system files
+# ==========================================
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+/backend/evoting-backend/src/

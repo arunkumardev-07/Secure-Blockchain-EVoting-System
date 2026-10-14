@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Blockchain E-Voting System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="loginPage" class="login-page">
+        <div class="login-panel">
+            <div class="login-icon" aria-hidden="true">🗳️</div>
+            <h1>SECURE E-VOTING</h1>
+            <p class="login-subtitle">Blockchain-powered voting demonstration</p>
+
+            <form id="loginForm">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+
+                <button type="submit" class="login-button">Login Securely</button>
+            </form>
+
+            <p id="loginMessage" class="message" role="status"></p>
+            <p class="demo-note">Academic demonstration · Local blockchain</p>
+        </div>
+    </section>
+
+    <section id="votingPage" class="voting-page" hidden>
+        <header class="voting-header">
+            <div>
+                <h1>SECURE E-VOTING SYSTEM</h1>
+                <p>Cast your demo vote and view blockchain results</p>
+            </div>
+            <button id="logoutButton" class="logout-button" type="button">Logout</button>
+        </header>
+
+        <main class="voting-main">
+            <div class="voting-heading">
+                <h2>Choose Your Party</h2>
+                <p>One voter can cast only one vote in this demonstration.</p>
+            </div>
+
+            <div id="candidateList" class="party-list">
+                <p>Loading parties...</p>
+            </div>
+
+            <p id="voteMessage" class="message" role="status"></p>
+
+            <section id="receiptPanel" class="receipt-panel" hidden>
+                <h2>Vote Confirmation</h2>
+                <p>Your vote submission response:</p>
+                <p id="receiptText"></p>
+            </section>
+
+            <section id="resultsSection" class="results-section">
+                <div class="results-heading">
+                    <div>
+                        <h2>Live Blockchain Results</h2>
+                        <p>Vote counts retrieved from the local smart contract</p>
+                    </div>
+                    <button id="refreshResultsButton" type="button" class="refresh-results-button">
+                        Refresh Results
+                    </button>
+                </div>
+
+                <div class="results-summary">
+                    <h3 id="leaderTitle">Loading results...</h3>
+                    <p id="leaderDescription">Reading the blockchain.</p>
+                    <p>Total votes recorded: <strong id="totalVotes">0</strong></p>
+                </div>
+
+                <div id="candidateResults" class="candidate-results" aria-live="polite"></div>
+                <p id="resultsMessage" class="message" role="status"></p>
+            </section>
+
+            <p class="demo-note">
+                Demo only — this is not an official election service.
+            </p>
+        </main>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
