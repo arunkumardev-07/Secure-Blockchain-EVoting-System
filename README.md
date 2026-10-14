@@ -1,5 +1,6 @@
 ﻿# Secure Blockchain-Based E-Voting System
 
+![Java](https://img.shields.io/badge/Java-21-orange) ![Spring_Boot](https://img.shields.io/badge/Spring%20Boot-4.0.8-brightgreen) ![Solidity](https://img.shields.io/badge/Solidity-Smart%20Contracts-blue) ![Hardhat](https://img.shields.io/badge/Hardhat-Local%20Blockchain-yellow) ![Project](https://img.shields.io/badge/Status-Academic%20Project-lightgrey)
 A full-stack academic project demonstrating electronic voting using Java, Spring Boot, MySQL, Solidity smart contracts, and a web-based frontend.
 
 ## Technologies Used
@@ -161,3 +162,4 @@ http://localhost:5500
 ## Architecture
 
 See [System Architecture](docs/ARCHITECTURE.md) for the high-level component overview.
+
